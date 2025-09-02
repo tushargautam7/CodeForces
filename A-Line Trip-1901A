@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;  // test cases kitne hain
+
+    while (t--) {
+        int n, x;
+        cin >> n >> x;  // n = kitne petrol pump, x = destination point
+
+        vector<int> stations(n);
+        for (int i = 0; i < n; i++) cin >> stations[i];  // petrol pump ki locations
+
+        // bhai 0 se start hota hai aur x pe end, unko bhi include karna padega
+        stations.insert(stations.begin(), 0);  // start pe 0 daal diya
+        stations.push_back(x);                 // end pe x daal diya
+
+        int max_gap = 0;  // yeh rakhega sabse bada gap
+        for (int i = 1; i < stations.size(); i++) {
+            // har do pump ke beech ka distance check kar
+            max_gap = max(max_gap, stations[i] - stations[i - 1]);
+        }
+
+        // ab ek aur dikkat hai: last pump se x tak jaake wapas aana hai
+        // matlab (x - last pump) * 2 bhi check karna hoga
+        int extra_gap = 2 * (x - stations[stations.size() - 2]);
+
+        // final answer = jo bhi sabse bada gap nikla
+        cout << max(max_gap, extra_gap) << "\n";
+    }
+    return 0;
+}
