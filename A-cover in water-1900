@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main() {
+    
+    int t;
+    std::cin >> t;
+    while (t--) {
+        int n;
+        std::cin >> n;
+        std::string s;
+        std::cin >> s;
+
+        int empty_cells = 0;
+        bool three_consecutive_empty = false;
+
+        for (int i = 0; i < n; ++i) {
+            if (s[i] == '.') {
+                empty_cells++;
+            }
+        }
+
+        for (int i = 0; i <= n - 3; ++i) { // Check for "..."
+            if (s[i] == '.' && s[i+1] == '.' && s[i+2] == '.') {
+                three_consecutive_empty = true;
+                break;
+            }
+        }
+
+        if (three_consecutive_empty) {
+            std::cout << 2 << std::endl;
+        } else {
+            std::cout << empty_cells << std::endl;
+        }
+    }
+    return 0;
+}
