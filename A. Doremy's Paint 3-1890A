@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t; 
+    cin >> t; // kitne test cases
+    while (t--) {
+        int n; 
+        cin >> n; // length
+        vector<int> a(n);
+        unordered_map<int,int> freq;
+        for (int i = 0; i < n; ++i) {
+            cin >> a[i]; // read
+            freq[a[i]]++; // count kar le bhai
+        }
+
+        if (freq.size() > 2) {
+            // teen se zyada distinct values -> impossible
+            cout << "No\n";
+            continue;
+        }
+        if (freq.size() == 1) {
+            // sab same -> chill, possible
+            cout << "Yes\n";
+            continue;
+        }
+        // exactly 2 distinct values
+        auto it = freq.begin();
+        int c1 = it->second; ++it;
+        int c2 = it->second;
+        int need1 = (n + 1) / 2; // ceil(n/2)
+        int need2 = n / 2;       // floor(n/2)
+        // dono possibility check kar le (kaunsa odd positions pe jayega hum decide kar sakte hain)
+        if ((c1 == need1 && c2 == need2) || (c2 == need1 && c1 == need2)) {
+            cout << "Yes\n";
+        } else {
+            cout << "No\n";
+        }
+    }
+    return 0;
+}
